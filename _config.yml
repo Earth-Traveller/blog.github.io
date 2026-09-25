@@ -102,8 +102,6 @@ theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
-deploy:
   type: git
   repo: git@github.com:Earth-Traveller/blog.github.io.git   # SSH 格式，见 10.2
   branch: gh-pages
