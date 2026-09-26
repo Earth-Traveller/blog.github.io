@@ -48,17 +48,17 @@ avatar:
 disable_top_img: false
 
 # If the banner of page not setting, it will show the default_top_img
-default_top_img: /img/banner.png
+default_top_img: /img/banner.jpg
 
 # The banner image of index page
 # 首页大图
-index_img: /img/banner.png
+index_img: /img/banner.jpg
 
 # The banner image of archive page
-archive_img: /img/banner.png
+archive_img: /img/banner.jpg
 
 # Note: tag page, not tags page
-tag_img: /img/banner.png
+tag_img: /img/banner.jpg
 
 # The banner image of tag page, you can set the banner image for each tag
 # Format:
@@ -66,7 +66,7 @@ tag_img: /img/banner.png
 tag_per_img:
 
 # Note: category page, not categories page
-category_img: /img/banner.png
+category_img: /img/banner.jpg
 
 # The banner image of category page, you can set the banner image for each category
 # Format:
@@ -79,7 +79,7 @@ footer_img: false
 # Website Background
 # Can set it to color, image URL or an array containing colors and/or image URLs
 # If an array is provided, a random background will be selected from the array on each load
-background:
+background: /img/bg.jpg
 
 cover:
   # Disable the cover or not

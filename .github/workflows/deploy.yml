@@ -1,0 +1,59 @@
+# ============================================================
+# Hexo 自动构建并部署到 GitHub Pages（gh-pages 分支）
+# ============================================================
+# 作用：push 到 main 后，GitHub 自动执行 hexo generate
+#       并把结果推到 gh-pages 分支 → 网站自动更新
+#
+# 使用前提：
+#   1. 仓库 Settings → Pages → Source = "Deploy from a branch"
+#      分支 = gh-pages，文件夹 = /(root)   ← 你已经是这个设置，不用改
+#   2. themes/butterfly 必须是普通文件夹（不能是子模块/gitlink）
+#   3. 仓库 Settings → Actions → General → Workflow permissions
+#      选择 "Read and write permissions"
+#
+# 配好之后，日常更新只需一条命令：git push
+# ============================================================
+
+name: Deploy Hexo to Pages
+
+on:
+  push:
+    branches:
+      - main
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+# 只保留最新一次构建，避免连续 push 时排队
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 源码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci || npm install
+
+      - name: 构建站点
+        run: npm run build
+
+      - name: 部署到 gh-pages 分支
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '站点更新: ${{ github.event.head_commit.message }}'
